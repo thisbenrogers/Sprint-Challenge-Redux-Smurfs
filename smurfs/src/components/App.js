@@ -29,6 +29,7 @@ class App extends Component {
       }
     });
   };
+
   addSmurf = e => {
     e.preventDefault();
     this.props.addSmurf(this.state.newSmurf);
