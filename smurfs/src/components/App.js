@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSmurfs } from '../actions';
+import { getSmurfs, addSmurf } from '../actions';
 
 import './App.css';
 
@@ -58,6 +58,9 @@ class App extends Component {
         <form onSubmit={this.addSmurf} className="add-smurf-form">
           <h2>Here You can Add any Smurfs You May Know About:</h2>
           <input type="text" name="name" value={this.state.newSmurf.name} onChange={this.changeHandler} placeholder="name" />
+          <input type="number" name="age" value={this.state.newSmurf.age} onChange={this.changeHandler} placeholder="age" />
+          <input type="text" name="height" value={this.state.newSmurf.height} onChange={this.changeHandler} placeholder="height" />
+          <button>Add Known Smurf</button>
         </form>
       </div>
     );
@@ -72,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getSmurfs }
+  { getSmurfs, addSmurf }
 )(App);
