@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSmurfs, addSmurf } from '../actions';
+import { getSmurfs, addSmurf, editSmurf } from '../actions';
 
 import './App.css';
 
@@ -13,7 +13,8 @@ class App extends Component {
       age: '',
       height: '',
       id: ''
-    }
+    },
+    editingSmurf: false
   };
 
   componentDidMount() {
@@ -43,6 +44,19 @@ class App extends Component {
     });
   };
 
+  editSmurf = (e, smurf) => {
+    e.preventDefault();
+    this.setState({
+      newSmurf: {
+        name: smurf.name,
+        age: smurf.age,
+        height: smurf.height,
+        id: smurf.id
+      },
+      editingSmurf: true
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -53,6 +67,7 @@ class App extends Component {
               <h3>{smurf.name}</h3>
               <p>{smurf.age}</p>
               <p>{smurf.height}</p>
+              <button onClick={e => this.editSmurf(e, smurf)}>Edit In Form Below</button>
             </div>
           );
         })}
@@ -61,7 +76,26 @@ class App extends Component {
           <input type="text" name="name" value={this.state.newSmurf.name} onChange={this.changeHandler} placeholder="name" />
           <input type="number" name="age" value={this.state.newSmurf.age} onChange={this.changeHandler} placeholder="age" />
           <input type="text" name="height" value={this.state.newSmurf.height} onChange={this.changeHandler} placeholder="height" />
-          <button>Add Known Smurf</button>
+          {!this.state.editingSmurf ? (
+            <button onClick={this.addSmurf}>Add Known Smurf</button>
+          ) : (
+              <button
+                onClick={e => {
+                  this.props.editSmurf(this.state.newSmurf);
+                  this.setState({
+                    newSmurf: {
+                      name: '',
+                      age: '',
+                      height: '',
+                      id: ''
+                    },
+                    editingSmurf: false
+                  });
+                }}
+              >
+                Edit This Smurf
+            </button>
+            )}
         </form>
       </div>
     );
@@ -76,5 +110,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getSmurfs, addSmurf }
+  { getSmurfs, addSmurf, editSmurf }
 )(App);
