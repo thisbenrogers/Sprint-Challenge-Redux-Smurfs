@@ -3,7 +3,7 @@
 */
 
 import {
-  FETCHING_SMURFS,
+  FETCHING_SMURFS_START,
   FETCHING_SMURFS_SUCCESS,
   FETCHING_SMURFS_FAILURE,
   ADDING_SMURF,
@@ -22,6 +22,25 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case FETCHING_SMURFS_START:
+      return {
+        ...state,
+        fetchingSmurfs: true,
+        error: ''
+      };
+    case FETCHING_SMURFS_SUCCESS:
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        error: '',
+        smurfs: action.payload
+      };
+    case FETCHING_SMURFS_FAILURE:
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        error: action.payload
+      };
     default:
       return state;
   }
