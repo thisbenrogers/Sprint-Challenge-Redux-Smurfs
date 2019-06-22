@@ -8,7 +8,10 @@ import {
   FETCHING_SMURFS_FAILURE,
   ADDING_SMURF_START,
   ADD_SMURF_SUCCESS,
-  ADD_SMURF_FAILURE
+  ADD_SMURF_FAILURE,
+  EDITING_SMURF_START,
+  EDIT_SMURF_SUCCESS,
+  EDIT_SMURF_FAILURE
 } from '../actions';
 
 const initialState = {
@@ -58,6 +61,25 @@ export default function (state = initialState, action) {
       return {
         ...state,
         addingSmurf: false,
+        error: action.payload
+      };
+    case EDITING_SMURF_START:
+      return {
+        ...state,
+        updatingSmurf: true,
+        error: ''
+      };
+    case EDIT_SMURF_SUCCESS:
+      return {
+        ...state,
+        error: '',
+        updatingSmurf: false,
+        smurfs: action.payload
+      };
+    case EDIT_SMURF_FAILURE:
+      return {
+        ...state,
+        updatingSmurf: false,
         error: action.payload
       };
     default:
