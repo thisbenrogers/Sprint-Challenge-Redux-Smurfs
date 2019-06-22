@@ -1,7 +1,3 @@
-/*
-  Be sure to import in all of the action types from `../actions`
-*/
-
 import {
   FETCHING_SMURFS_START,
   FETCHING_SMURFS_SUCCESS,
@@ -11,7 +7,10 @@ import {
   ADD_SMURF_FAILURE,
   EDITING_SMURF_START,
   EDIT_SMURF_SUCCESS,
-  EDIT_SMURF_FAILURE
+  EDIT_SMURF_FAILURE,
+  DELETING_SMURF_START,
+  DELETING_SMURF_SUCCESS,
+  DELETING_SMURF_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -80,6 +79,25 @@ export default function (state = initialState, action) {
       return {
         ...state,
         updatingSmurf: false,
+        error: action.payload
+      };
+    case DELETING_SMURF_START:
+      return {
+        ...state,
+        deletingSmurf: true,
+        error: ''
+      };
+    case DELETING_SMURF_SUCCESS:
+      return {
+        ...state,
+        deletingSmurf: false,
+        error: '',
+        smurfs: action.payload
+      };
+    case DELETING_SMURF_FAILURE:
+      return {
+        ...state,
+        deletingSmurf: false,
         error: action.payload
       };
     default:
