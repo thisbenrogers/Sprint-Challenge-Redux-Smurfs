@@ -41,6 +41,25 @@ export default function (state = initialState, action) {
         fetchingSmurfs: false,
         error: action.payload
       };
+    case ADDING_SMURF_START:
+      return {
+        ...state,
+        error: '',
+        addingSmurf: true
+      };
+    case ADD_SMURF_SUCCESS:
+      return {
+        ...state,
+        error: '',
+        addingSmurf: false,
+        smurfs: action.payload
+      };
+    case ADD_SMURF_FAILURE:
+      return {
+        ...state,
+        addingSmurf: false,
+        error: action.payload
+      };
     default:
       return state;
   }
